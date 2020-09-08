@@ -5,6 +5,7 @@
 
 import 'package:flutter/material.dart';
 import './texts.dart';
+import './textControl.dart';
 
 void main() => runApp(MyApp());
 
@@ -17,6 +18,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   var _textIndex = 0;
+
   void _changeText() {
     setState(() {
       _textIndex += 1;
@@ -27,28 +29,34 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     var texts = [
-      'This is first text',
-      'This is second text',
+      'The world\'s quietest room is located at Microsoft\'s headquarters in Washington state.',
+      'There are only three countries in the world that don\'t use the metric system.',
+      '\"Taumatawhakatangihangakoauauotamateaturipukakapikimaungahoronukupokaiwhenuakitanatahu\", New Zealand is the longest place name in the world.',
+      'Africa and Asia are home to nearly 90 percent of the world\'s rural population.',
     ];
 
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
           title: Text(
-            'Flutter Assignment App',
+            'Fun Facts Shuffler',
           ),
         ),
-        body: Column(
-          children: [
-            Texts(
-              texts[_textIndex],
-            ),
-            RaisedButton(
-              child: Text('Press Here'),
-              onPressed: _changeText,
-            )
-          ],
-        ),
+        body: _textIndex < texts.length
+            ? Column(
+                children: [
+                  Texts(
+                    texts[_textIndex],
+                  ),
+                  TextControl(_changeText),
+                ],
+              )
+            : Center(
+                child: Text(
+                  'We are done here!',
+                  style: TextStyle(fontSize: 24),
+                ),
+              ),
       ),
     );
   }
